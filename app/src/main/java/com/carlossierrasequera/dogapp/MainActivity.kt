@@ -20,12 +20,15 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    //función para compartir la imagen
     private fun shareImage(imageUrl: String) {
+        //se crea el intent para compartir la url de la imagen
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, "¡Mira este perro! $imageUrl")
             type = "text/plain"
         }
+        // inicia la actividad para compartir el contenido con un selector de aplicaciones
         startActivity(Intent.createChooser(shareIntent, "Compartir imagen"))
     }
 

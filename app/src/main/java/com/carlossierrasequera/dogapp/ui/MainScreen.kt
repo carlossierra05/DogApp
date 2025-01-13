@@ -16,16 +16,15 @@ import coil.compose.rememberImagePainter
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.carlossierrasequera.dogapp.ui.theme.DogAppTheme
 
-
 @Composable
 fun MainScreen(
-    dogViewModel: DogViewModel = viewModel(),
-    onShare: (String) -> Unit
+    dogViewModel: DogViewModel = viewModel(), //obtiene el viewmodel para manejar el estado
+    onShare: (String) -> Unit //compartir la url de la imagen
 ) {
     val dogImageUrl = dogViewModel.dogImageUrl.value
     val isLoading = dogImageUrl.isEmpty()
 
-    // Cuando la pantalla se inicializa, obtiene una nueva imagen
+    //carga imagen cuando la pantalla se inicializa
     LaunchedEffect(Unit) {
         dogViewModel.getNewDogImage()
     }
@@ -36,14 +35,14 @@ fun MainScreen(
                 .fillMaxSize()
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween // Distribuye los elementos uniformemente
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Spacer(modifier = Modifier.height(16.dp)) // Espaciado superior para margen inicial
+            Spacer(modifier = Modifier.height(16.dp))
 
             if (isLoading) {
                 CircularProgressIndicator(
                     modifier = Modifier
-                        .size(64.dp) // Tamaño del indicador de progreso
+                        .size(64.dp)
                         .align(Alignment.CenterHorizontally)
                 )
             } else {
@@ -51,22 +50,25 @@ fun MainScreen(
                     painter = rememberImagePainter(dogImageUrl),
                     contentDescription = "Imagen de perro",
                     modifier = Modifier
-                        .size(200.dp) // Tamaño de la imagen
-                        .clip(CircleShape) // Forma circular
+                        .size(200.dp)
+                        .clip(CircleShape)
                         .align(Alignment.CenterHorizontally)
                 )
             }
 
+            //botones
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                // Botón de nueva imagen
                 Button(onClick = { dogViewModel.getNewDogImage() }) {
                     Text("Obtener otro perro")
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
 
+                // Botón de compartir
                 Button(onClick = { if (dogImageUrl.isNotEmpty()) onShare(dogImageUrl) }) {
                     Text("Compartir")
                 }

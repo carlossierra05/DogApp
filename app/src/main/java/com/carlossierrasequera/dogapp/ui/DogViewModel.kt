@@ -7,25 +7,24 @@ import com.carlossierrasequera.dogapp.data.ApiClient
 import kotlinx.coroutines.launch
 
 class DogViewModel : ViewModel() {
-    // Estado que almacena la URL de la imagen del perro
+    //almacena la url de la imagen del perro
     var dogImageUrl = mutableStateOf("")
         private set
 
     init {
-        // Obtener la primera imagen cuando se inicializa el ViewModel
+        //obtiene la primera imagen cuando se inicializa el ViewModel
         getNewDogImage()
     }
 
-    // Función para obtener una nueva imagen del perro
+    //función que obtiene una nueva imagen del perro
     fun getNewDogImage() {
-        // Llamamos a la API para obtener la URL de la imagen de un perro
+        //llamada a la api para obtener la URL de la imagen
         viewModelScope.launch {
             try {
                 val dogResponse = ApiClient.getDogApiService().getRandomDogImage()
-                dogImageUrl.value = dogResponse.message // Asignamos la URL de la imagen recibida
+                dogImageUrl.value = dogResponse.message //se asigna de la imagen recibida
             } catch (e: Exception) {
-                // Manejo de errores, si ocurre algún fallo en la solicitud
-                dogImageUrl.value = ""
+                dogImageUrl.value = "Error al cargar la imagen"
             }
         }
     }

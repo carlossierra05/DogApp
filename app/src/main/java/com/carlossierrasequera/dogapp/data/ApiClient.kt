@@ -5,10 +5,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    // URL base de la API de perros
+    //url base de la api
     private const val BASE_URL = "https://dog.ceo/api/"
 
-    // Creamos la instancia de Retrofit
     private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -17,8 +16,9 @@ object ApiClient {
             .build()
     }
 
-    // Devuelve el servicio para obtener las imágenes de perros
+    //metodo para obtener el servicio de la api
     fun getDogApiService(): DogApiService {
+        //se crea y se implementa la interfaz con retrofit
         return retrofit.create(DogApiService::class.java)
     }
 }
