@@ -63,7 +63,7 @@ fun MainScreen(
             ) {
                 // Botón de nueva imagen
                 Button(onClick = { dogViewModel.getNewDogImage() }) {
-                    Text("Obtener otro perro")
+                    Text("Ver otro perro")
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
